@@ -1,0 +1,44 @@
+Команды для настройки демона sshd:
+sudo yum –y install openssh-server openssh-clients nano (устанавливаем необходимые утилиты)
+sudo nano /etc/ssh/sshd_config (ставим порт 2002)
+sudi yum -y install policycoreutils-python (утилита для SELinux)
+semanage port -a -t ssh_port_t -p tcp 2002 (настраиваем semanage)
+service sshd restart (перезапускаем демон)
+firewall-cmd --add-port 2002/tcp --permanent (настраиваем фаервол)
+firewall-cmd --reload
+systemctl start sshd (запускаем демон)
+systemctl status sshd (проверяем, что он запущен)
+systemctl enable sshd (добавляем в автозагрузку после перезагрузки)
+ifconfig (проверям ip тачки)
+netstat -tupln | grep :2002 (проверяем, что на 2002 порту висит sshd)
+
+Команды для настройки ngingx:
+dnf install nginx (устанавливаем nginx)
+nano /etc/nginx/nginx.conf (редактируем конфиг:
+    server {
+	listen       2020 default_server;
+        listen       [::]:2020 default_server;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+	error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    } )
+
+sudo semanage port -a -t http_port_t -p tcp 2020 (настраиваем semanage)
+firewall-cmd --add-port 2020/tcp --permanent (настраиваем фаервол)
+firewall-cmd --reload
+systemctl restart nginx (перезапускаем nginx)
+systemctl status nginx
+systemctl enable nginx

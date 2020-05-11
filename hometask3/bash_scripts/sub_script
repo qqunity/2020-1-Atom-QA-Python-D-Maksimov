@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ $# -ne 4 ]
+then
+        echo "Invalid number of parameters!" >&2
+        exit 1
+fi
+
+while [ -n "$1" ]
+do
+        case "$1" in
+                -f)
+                        file_path="$2"
+                        shift;;
+                -e)
+                        err_code_mask="$2"
+                        shift;;
+                *)
+                        echo "$1 is not option!" >&2
+                        exit 1
+                        break;;
+                esac
+                        shift
+done
+
+
+IFS=$'\n'
+for err_code in $(awk '{print $9}' $file_path | grep $err_code_mask | sort -u)
+do
+	IFS=$'\n'
+	for unic_req in $(awk -F " " '{print $7, "status_code:" $9}' $file_path | sed 's/"//' | grep status_code:$err_code | sort -u)
+	do
+		echo "$unic_req is repeated $(awk -F " " '{print $7, "status_code:" $9}' $file_path | sed 's/"//' | grep status_code:$err_code | grep $unic_req | wc -l) times"
+	done
+done | sort -nrk 5

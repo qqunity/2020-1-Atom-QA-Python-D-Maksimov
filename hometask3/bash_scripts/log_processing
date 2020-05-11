@@ -1,0 +1,126 @@
+#!/bin/bash
+
+err_file_path="./err_log.txt"
+
+if [ -f $err_file_path ]
+then
+	rm $err_file_path
+	touch $err_file_path
+else
+	touch $err_file_path
+fi
+
+exec 2>$err_file_path
+
+interactive_mode=1
+
+while [ -n "$1" ]
+do
+	case "$1" in
+		-s)
+			interactive_mode=0;;
+		-f)
+			file_path="$2"
+			shift;;
+		-cmd)
+			cmd="$2"
+			shift;;
+		-o)
+			output_path="$2"
+			exec 1>$output_path
+			shift;;
+		-req_type)
+			req_type="$2"
+			shift;;
+		*)
+			echo "$1 is not option!" >&2
+			exit 1
+			break;;
+		esac
+			shift
+done
+
+if [ $interactive_mode -ne 1 ]
+then
+	if [ $cmd -eq 1 ]
+	then
+		echo $(wc -l $file_path | sed 's/ / lines in /g')
+	elif [ $cmd -eq 2 ]
+	then
+		echo "Count of $req_type requests is equal $(awk '{print $6}' $file_path | sed 's/"//' | grep $req_type | wc -l)"
+	elif [ $cmd -eq 3 ]
+	then
+		awk -F " " '{print $1, $4 $5, $6, $7, $9, $10}' $file_path | sed 's/"//' | sort -nrk 6 | head -n 10
+	elif [ $cmd -eq 4 ]
+	then
+		./sub_script -f $file_path -e 4..
+	elif [ $cmd -eq 5 ]
+	then
+		awk '{print $1, $7, "status_code:" $9, $10}' $file_path | grep status_code:4.. | sort -u | sort -nrk 4 | head -n 10
+	else
+		echo "Command error!" >&2
+                exit 1
+	fi
+else
+
+
+
+	shutdown=0
+
+	while [ $shutdown -ne 1 ]
+	do
+		echo -en "\x1b[33m<o>\x1b[0m Введите 0, если хотите завершить работу скрипта.\n"
+		echo -en "\x1b[33m<o>\x1b[0m Введите 1, если хотите узнать общее количество запросов.\n"
+		echo -en "\x1b[33m<o>\x1b[0m Введите 2, если узнать количесво запросов по типу.\n"
+		echo -en "\x1b[33m<o>\x1b[0m Введите 3, если хотите вывести топ 10 самых больших запросов по размеру.\n"
+		echo -en "\x1b[33m<o>\x1b[0m Введите 4, если хотите вывести топ 10 по количеству запросов, которые завершились клиентской ошибкой.\n"
+		echo -en "\x1b[33m<o>\x1b[0m Введите 5, если хотите вывести топ 10 по размеру запросов, которые завершились клиентской ошибкой.\n"
+		echo -en "\x1b[34m-> \x1b[0m"
+		read user_input
+		if [ $user_input -eq 0 ]
+		then
+			echo "До новых стреч! :)"
+			break
+		elif [ $user_input -eq 1 ]
+		then
+			echo ""
+			echo $(wc -l $file_path | sed 's/ / lines in /g')
+			echo ""
+		elif [ $user_input -eq 2 ]
+		then
+			echo -en "\x1b[33m<o>\x1b[0m Введите тип запроса.\n"
+			echo -en "\x1b[34m-> \x1b[0m"
+			read req_type
+			echo ""
+			echo "Count of $req_type requests is equal $(awk '{print $6}' $file_path | sed 's/"//' | grep $req_type | wc -l)"
+			echo ""
+		elif [ $user_input -eq 3 ]
+		then
+			echo ""
+			awk -F " " '{print $1, $4 $5, $6, $7, $9, $10}' $file_path | sed 's/"//' | sort -nrk 6 | head -n 10
+			echo ""
+		elif [ $user_input -eq 4 ]
+		then
+			echo ""
+	  		if ./sub_script -f $file_path -e 4..
+			then
+			echo ""
+			else
+				exit 1
+			fi
+		elif [ $user_input -eq 5 ]
+		then
+			echo ""
+	                if awk '{print $1, $7, "status_code:" $9, $10}' $file_path | grep status_code:4.. | sort -u | sort -nrk 4 | head -n 10
+	                then
+	                        echo ""
+	                else
+	                        exit 1
+	                fi
+		else
+			echo "Input error!" >&2
+			exit 1
+		fi
+	done
+fi
+
