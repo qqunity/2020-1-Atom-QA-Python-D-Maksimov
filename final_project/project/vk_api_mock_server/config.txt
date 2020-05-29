@@ -1,0 +1,4 @@
+VK_URL = 127.0.0.1:5005
+MYSQL_HOST = mysql_database
+MYSQL_PORT = 3306
+MYSQL_DB = test_qa_db

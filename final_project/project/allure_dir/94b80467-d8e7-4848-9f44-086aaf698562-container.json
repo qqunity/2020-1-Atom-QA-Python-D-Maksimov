@@ -1,0 +1,1 @@
+{"uuid": "6a1699c0-b14b-474d-b78f-95abf0973393", "children": ["2cd67faf-f491-4a90-bdb4-5c2e5fc96f3c"], "befores": [{"name": "get_vk_api_client", "status": "passed", "start": 1590595312599, "stop": 1590595313120}], "start": 1590595312599, "stop": 1590595314687}

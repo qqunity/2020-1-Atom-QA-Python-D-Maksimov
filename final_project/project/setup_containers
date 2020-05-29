@@ -1,0 +1,37 @@
+#!/bin/bash
+
+err_file_path="./err_logs/err_log_for_containers.txt"
+
+if [ -f $err_file_path ]
+then
+	rm $err_file_path
+	touch $err_file_path
+else
+	touch $err_file_path
+fi
+
+exec 2>$err_file_path
+
+while [ -n "$1" ]
+do
+  case "$1" in
+    -db)
+      db_name="$2"
+      shift;;
+    *)
+      echo "$1 is not option!" >&2
+      exit 1
+      break;;
+	esac
+		shift
+done
+
+server_port=$(cat ./vk_api_mock_server/config.txt | awk -F ":" '{print $2}')
+
+docker build -t vk_api_mock_server ./vk_api_mock_server/
+docker run --name vk_api_mock_server -p $server_port:$server_port -d --rm vk_api_mock_server
+
+docker run --name $db_name -e MYSQL_ROOT_PASSWORD=pass -p 3306:3306 --rm -d mysql
+
+
+

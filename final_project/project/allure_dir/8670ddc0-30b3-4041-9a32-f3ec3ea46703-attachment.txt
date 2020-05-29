@@ -1,0 +1,8 @@
+27.05.2020 16:07:22.171 - app - ERROR - Can not create user: ilarionfadeev, err: (pymysql.err.DataError) (1406, "Data too long for column 'password' at row 1")
+[parameters: {'username': 'ilarionfadeev', 'password': 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq ... (2 characters truncated) ... qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 'email': 'gordeevgostomisl@mezhdunarodni.org', 'access': '1', 'active': '0', 'start_active_time': None}]
+27.05.2020 16:07:22.171 - app - ERROR - /reg err: 'bool' object has no attribute 'is_active'
+[32mPOST /login HTTP/1.1[0m" 302 -
+172.18.0.7 - - [27/May/2020 16:07:20] "[37mGET /reg HTTP/1.1[0m" 200 -
+172.18.0.8 - - [27/May/2020 16:07:20] "[37mGET /reg HTTP/1.1[0m" 200 -
+172.18.0.8 - - [27/May/2020 16:07:21] "[31m[1mPOST /reg HTTP/1.1[0m" 400 -
+172.18.0.7 - - [27/May/2020 16:07:22] "[35m[1mPOST /reg HTTP/1.1[0m" 500 -

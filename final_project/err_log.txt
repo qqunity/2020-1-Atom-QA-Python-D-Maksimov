@@ -1,0 +1,17 @@
+Building vk_api_mock_server
+Image for service vk_api_mock_server was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+Creating project_selenoid ... 
+Creating project_mysql_database ... 
+[2A[2KCreating project_selenoid       ... [32mdone[0m[2B[1A[2KCreating project_mysql_database ... [32mdone[0m[1BCreating project_app            ... 
+Creating vk_api_mock_server     ... 
+[1A[2KCreating vk_api_mock_server     ... [32mdone[0m[1B[2A[2KCreating project_app            ... [32mdone[0m[2B/tmp/_MEIRlncob/pymysql/cursors.py:170: Warning: (3719, "'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.")
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+Stopping vk_api_mock_server     ... 
+Stopping project_app            ... 
+Stopping project_mysql_database ... 
+Stopping project_selenoid       ... 
+[3A[2KStopping project_app            ... [32mdone[0m[3B[1A[2KStopping project_selenoid       ... [32mdone[0m[1B[4A[2KStopping vk_api_mock_server     ... [32mdone[0m[4B[2A[2KStopping project_mysql_database ... [32mdone[0m[2BRemoving vk_api_mock_server     ... 
+Removing project_app            ... 
+Removing project_mysql_database ... 
+Removing project_selenoid       ... 
+[3A[2KRemoving project_app            ... [32mdone[0m[3B[2A[2KRemoving project_mysql_database ... [32mdone[0m[2B[1A[2KRemoving project_selenoid       ... [32mdone[0m[1B[4A[2KRemoving vk_api_mock_server     ... [32mdone[0m[4BNetwork projectnet is external, skipping

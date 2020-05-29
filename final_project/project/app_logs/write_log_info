@@ -1,0 +1,29 @@
+#!/bin/bash
+
+while [ -n "$1" ]
+do
+  case "$1" in
+    -f)
+      log_path="$2"
+      shift;;
+    *)
+      echo "$1 is not option!" >&2
+      exit 1
+      break;;
+	esac
+		shift
+done
+
+if [ -f $log_path ]
+then
+	rm $log_path
+	touch $log_path
+else
+	touch $log_path
+fi
+
+exec 1>$log_path
+exec 2>$log_path
+
+log_info=$(docker ps -a | grep myapp | awk '{print $1}' | xargs docker logs)
+echo "$log_info"

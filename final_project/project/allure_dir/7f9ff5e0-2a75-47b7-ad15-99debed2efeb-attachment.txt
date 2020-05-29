@@ -1,0 +1,11 @@
+27.05.2020 16:00:39.110 - app - ERROR - Can not create user: velimir_62q, err: (pymysql.err.IntegrityError) (1062, "Duplicate entry 'seliverst_1973@rao.org' for key 'test_users.email'")
+[parameters: {'username': 'velimir_62q', 'password': '*b3Q4HriOE', 'email': 'seliverst_1973@rao.org', 'access': '1', 'active': '0', 'start_active_time': None}]
+ 200 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[37mGET /api/del_user/leonideliseev HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[37mGET /login HTTP/1.1[0m" 200 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[37mGET /login HTTP/1.1[0m" 200 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/taisija84 HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[32mPOST /login HTTP/1.1[0m" 302 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[32mGET /logout HTTP/1.1[0m" 302 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /login HTTP/1.1[0m" 200 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mPOST /api/add_user HTTP/1.1[0m" 210 -

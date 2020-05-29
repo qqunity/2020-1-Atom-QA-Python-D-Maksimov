@@ -1,0 +1,39 @@
+#!/bin/bash
+
+cnt_node=1
+while [ -n "$1" ]
+do
+  case "$1" in
+    -m)
+      mark="$2"
+      shift;;
+    -n)
+      cnt_node="$2"
+      shift;;
+    -allure)
+      allure_dir="$2"
+      shift;;
+    *)
+      echo "$1 is not option!" >&2
+      exit 1
+      break;;
+	esac
+		shift
+done
+
+pytest -s -l -v project -m runapp
+if [ $mark == "UI" ]
+then
+  pytest -s -l -v project -m UI --selenoid=$(./project/selenoid/get_selenoid_host):4444 -n $cnt_node --alluredir=$allure_dir
+elif [ $mark == "API" ]
+then
+  pytest -s -l -v project -m API -n $cnt_node --alluredir=$allure_dir
+elif [ $mark == "all" ]
+then
+  pytest -s -l -v project -m API -n $cnt_node --alluredir=$allure_dir
+  pytest -s -l -v project -m UI --selenoid=$(./project/selenoid/get_selenoid_host):4444 -n $cnt_node --alluredir=$allure_dir
+else
+  echo "Mark error!" >&2
+  exit 1
+fi
+pytest -s -l -v project -m shutdownapp

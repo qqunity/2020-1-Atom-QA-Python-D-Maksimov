@@ -1,0 +1,6 @@
+27.05.2020 16:00:39.702 - app - ERROR - Can not create user: naum_1973, err: (pymysql.err.DataError) (1406, "Data too long for column 'password' at row 1")
+[parameters: {'username': 'naum_1973', 'password': '%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQ ... (1702 characters truncated) ... 97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy%97nXojJQy', 'email': 'lora_2016@yandex.ru', 'access': '1', 'active': '0', 'start_active_time': None}]
+39] "[32mPOST /login HTTP/1.1[0m" 302 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/ilarion_1993 HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[33mGET /api/del_user/artemi04 HTTP/1.1[0m" 404 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/kabanovanonna HTTP/1.1[0m" 204 -

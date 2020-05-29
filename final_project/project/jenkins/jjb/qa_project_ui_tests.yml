@@ -1,0 +1,39 @@
+- scm:
+    name: qa-project-scm
+
+    scm:
+      - git:
+          url: git@github.com:qqunity/qa-project.git
+          credentials-id: 44cf6728-5cce-405a-960a-72d7baa0667f
+          basedir: src
+          branches:
+            - origin/master
+
+
+- job:
+    name: qa_project_ui_tests
+    description: 'Run all tests'
+    project-type: freestyle
+
+    scm:
+      - qa-project-scm
+
+    wrappers:
+      - timestamps
+      - workspace-cleanup
+
+    triggers:
+      - pollscm:
+          cron: "* * * * *"
+
+    builders:
+      - shell: |
+          mkdir $WORKSPACE/allure-results
+          cd src
+          pip3.8 install -r ./project/requirements.txt
+          ./run_project -m UI -n auto -allure $WORKSPACE/allure-results
+    publishers:
+      - allure:
+          results-path:
+            - path: allure-results
+          report-build-policy: ALWAYS

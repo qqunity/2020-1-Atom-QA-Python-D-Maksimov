@@ -1,0 +1,5 @@
+27.05.2020 16:08:26.468 - app - ERROR - Can not create user: zuevfeq, err: (pymysql.err.IntegrityError) (1062, "Duplicate entry 'ponomarevtaras@rao.com' for key 'test_users.email'")
+[parameters: {'username': 'zuevfeq', 'password': '^zSHvb&$Q2', 'email': 'ponomarevtaras@rao.com', 'access': '1', 'active': '0', 'start_active_time': None}]
+27.05.2020 16:08:26.468 - app - ERROR - /reg err: 'bool' object has no attribute 'is_active'
+172.18.0.8 - - [27/May/2020 16:08:25] "[37mGET /reg HTTP/1.1[0m" 200 -
+172.18.0.8 - - [27/May/2020 16:08:26] "[35m[1mPOST /reg HTTP/1.1[0m" 500 -

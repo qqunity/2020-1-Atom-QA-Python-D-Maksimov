@@ -1,0 +1,65 @@
+version: '2.1'
+
+networks:
+  projectnet:
+    external:
+      name: projectnet
+
+services:
+  mysql_database:
+    networks:
+      - projectnet
+    container_name: project_mysql_database
+    image: "mysql:latest"
+    environment:
+      MYSQL_DATABASE: test_qa_db
+      MYSQL_ROOT_PASSWORD: pass
+    ports:
+    - 3306:3306
+    volumes:
+    - /media/qunity/Workspace/Python_projects/qa-project/project/database_code/database_scheme:/docker-entrypoint-initdb.d/:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"-uroot", "-ppass", "ping", "-h", "127.0.0.1"]
+      timeout: 20s
+      retries: 10
+
+  vk_api_mock_server:
+    networks:
+      - projectnet
+    container_name: vk_api_mock_server
+    build: $PWD/project/vk_api_mock_server
+    ports:
+    - 5005:5005
+    depends_on:
+      mysql_database:
+        condition: service_healthy
+
+  project_app:
+    networks:
+      - projectnet
+    container_name: project_app
+    image: myapp:latest
+    volumes:
+    - /media/qunity/Workspace/Python_projects/qa-project/project/app_config:/app_config
+    ports:
+    - 8080:8080
+    command: /app/myapp --config=/app_config/config.txt
+    depends_on:
+      mysql_database:
+        condition: service_healthy
+
+  selenoid:
+    networks:
+      - projectnet
+    container_name: project_selenoid
+    image: aerokube/selenoid:latest
+    volumes:
+      - /media/qunity/Workspace/Python_projects/qa-project/project/selenoid/config:/etc/selenoid
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /media/qunity/Workspace/Python_projects/qa-project/project/selenoid/config/video:/opt/selenoid/video
+      - /media/qunity/Workspace/Python_projects/qa-project/project/selenoid/config/logs:/opt/selenoid/logs
+    ports:
+      - 4444:4444
+    environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=/media/qunity/Workspace/Python_projects/qa-project/project/selenoid/config/video
+    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "projectnet"]

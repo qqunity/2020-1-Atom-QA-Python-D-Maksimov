@@ -1,0 +1,11 @@
+27.05.2020 16:00:39.365 - app - ERROR - Can not create user: fkulikovafkulikovafk, err: (pymysql.err.DataError) (1406, "Data too long for column 'username' at row 1")
+[parameters: {'username': 'fkulikovafkulikovafk', 'password': 'XgPzvReZ$6', 'email': 'nikolaevvladilen@yandex.ru', 'access': '1', 'active': '0', 'start_active_time': None}]
+(Background on this error at: http://sqlalche.me/e/9h9h)
+7/May/2020 16:00:38] "[37mGET /login HTTP/1.1[0m" 200 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/hustin HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/kap HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/er HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[36mPOST /api/add_user HTTP/1.1[0m" 304 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[33mGET /api/del_user/fkulikovafkulikovafk HTTP/1.1[0m" 404 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/b HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:39] "[37mGET /api/del_user/vladimir1991 HTTP/1.1[0m" 204 -

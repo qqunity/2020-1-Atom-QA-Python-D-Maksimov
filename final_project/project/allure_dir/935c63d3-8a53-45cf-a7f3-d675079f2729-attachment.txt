@@ -1,0 +1,10 @@
+27.05.2020 16:00:38.904 - app - ERROR - Can not create user: mitofansamolovq, err: (pymysql.err.IntegrityError) (1062, "Duplicate entry 'ostromir50@mail.ru' for key 'test_users.email'")
+[SQL: INSERT INTO test_users (username, password, email, access, active, start_active_time) VALUES (%(username)s, %(password)s, %(email)s, %(access)s, %(active)s, %(start_active_time)s)]
+[parameters: {'username': 'mitofansamolovq', 'password': '@g5WkH1aM2', 'email': 'ostromir50@mail.ru', 'access': '1', 'active': '0', 'start_active_time': None}]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+27.05.2020 16:00:38.904 - app - ERROR - /reg err: 'bool' object has no attribute 'is_active'
+dd_user HTTP/1.1[0m" 210 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[37mGET /api/del_user/lobanovratibor HTTP/1.1[0m" 204 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[37mGET /login?next=/logout HTTP/1.1[0m" 200 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[35m[1mPOST /reg HTTP/1.1[0m" 500 -
+172.18.0.1 - - [27/May/2020 16:00:38] "[37mGET /api/del_user/leonideliseev HTTP/1.1[0m" 204 -
